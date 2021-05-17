@@ -90,7 +90,7 @@
                 style="@style/TextViewStyle.REGULAR"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:text="@string/accept_terms_privacy_text"
-                android:textColor="@color/colorOnDarkBlue"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@id/login_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

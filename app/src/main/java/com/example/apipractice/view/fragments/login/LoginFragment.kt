@@ -1,5 +1,6 @@
 package com.example.apipractice.view.fragments.login
 
+import `in`.sarangal.lib.spantastic.Spantastic
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +39,35 @@ class LoginFragment : Fragment() {
         binding.executePendingBindings()
 
         setClickListener()
+
+        spanString()
     }
 
     private fun setClickListener() {
 
+    }
+
+    /**
+     * Set Spannable Texts
+     * */
+    private fun spanString() {
+        binding.termConditionsTextView.let {
+            val termConditionKey = resources.getString(R.string.terms_condition_key)
+            val privacyPolicyKey = resources.getString(R.string.privacy_policy_key)
+            Spantastic.SpantasticBuilder(requireContext(), it, it.text.toString())
+                .setSpanList(listOf(termConditionKey, privacyPolicyKey))
+                .setSpanColor(resources.getColor(R.color.colorOnBlue))
+                .setClickCallback { spanString, _ ->
+                    when (spanString) {
+                        termConditionKey -> {
+
+                        }
+                        privacyPolicyKey -> {
+
+                        }
+                    }
+                }
+                .apply()
+        }
     }
 }
