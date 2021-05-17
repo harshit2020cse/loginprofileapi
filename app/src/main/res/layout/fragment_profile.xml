@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.apipractice.view.fragments.profile.ProfileViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/profileDetailsTextView"
+                    style="@style/TextViewStyle.MEDIUM"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/colorBlue"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@string/profile_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/profileImageView"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:src="@drawable/ic_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileDetailsTextView" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/editProfilePicture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@string/edit"
+                    android:textColor="@color/colorExtraDarkBlue"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+                    app:layout_constraintEnd_toEndOf="@+id/profileImageView"
+                    app:layout_constraintStart_toStartOf="@+id/profileImageView" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/nameTextView"
+                    style="@style/TextViewStyle.BOLD"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/harshit_kumar"
+                    android:textSize="@dimen/extra_large_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileImageView"
+                    tools:text="Harshit Kumar" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/phoneNumberTextView"
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/phone_number_sample"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nameTextView"
+                    tools:text="+91 7037302671" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/editDetailsTextView"
+                    style="@style/TextViewStyle.MEDIUM"
+                    android:layout_margin="@dimen/_14sdp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/_2sdp"
+                    android:text="@string/edit_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profileDetailsTextView" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/basicDetailsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:background="@drawable/bg_rounded_outline_grey"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phoneNumberTextView">
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:background="@drawable/divider"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/dobTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/dobTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:layout_width="wrap_content"
+                        android:text="@string/date_of_birth"
+                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/dobValueTextView"
+                        style="@style/TextViewStyle"
+                        android:text="20-05-1999"
+                        app:layout_constraintBaseline_toBaselineOf="@id/dobTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider"
+                        tools:text="20-05-1999" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/bloodGroupTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/blood_group"
+                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dobTextView" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/bloodGroupValueTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:text="AB+"
+                        android:textColor="@color/colorLDarkRed"
+                        app:layout_constraintBaseline_toBaselineOf="@id/bloodGroupTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider"
+                        tools:text="AB+" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/medoIdTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/medoplus_id"
+                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bloodGroupTextView" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/medoIdValueTextView"
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="PAP12MA00031"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider"
+                        app:layout_constraintTop_toBottomOf="@id/bloodGroupValueTextView"
+                        tools:text="PAP12MA00031" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/alternatePhoneNumberTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/_1st_alternate_number"
+                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/medoIdTextView" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/alternatePhoneNumberValueTextView"
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="+91 7037302671"
+                        app:layout_constraintBaseline_toBaselineOf="@id/alternatePhoneNumberTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider"
+                        tools:text="+91 7037302671" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/alternateSecondPhoneNumberTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/_2nd_alternate_number"
+                        app:layout_constraintEnd_toStartOf="@id/divider"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alternatePhoneNumberTextView" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/alternateSecondPhoneNumberValueTextView"
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="+91 7037302671"
+                        app:layout_constraintBaseline_toBaselineOf="@id/alternateSecondPhoneNumberTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/divider"
+                        tools:text="+91 7037302671" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/addressDetailsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:background="@drawable/bg_rounded_outline_grey"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/basicDetailsLayout">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/addressTextView"
+                        style="@style/TextViewStyle.MEDIUM"
+                        android:text="@string/address"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/addressValueTextView"
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@string/address_sample"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/addressTextView"
+                        tools:text="@string/address_sample" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/changePasswordButton"
+                    style="@style/ButtonStyle"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:text="@string/change_password"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/addressDetailsLayout"
+                    app:layout_constraintVertical_bias="0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

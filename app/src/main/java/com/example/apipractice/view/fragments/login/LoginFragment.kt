@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
 import com.example.apipractice.databinding.FragmentLoginBinding
 
@@ -45,6 +46,9 @@ class LoginFragment : Fragment() {
 
     private fun setClickListener() {
 
+        binding.loginButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
     }
 
     /**
