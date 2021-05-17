@@ -128,7 +128,7 @@
                         android:id="@+id/dobTextView"
                         style="@style/TextViewStyle.MEDIUM"
                         android:layout_width="wrap_content"
-                        android:text="@string/date_of_birth"
+                        android:text="@string/date_of_birth_"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"

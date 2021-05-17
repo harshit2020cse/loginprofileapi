@@ -1,6 +1,7 @@
 package com.example.apipractice.view.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.apipractice.R
 import com.example.apipractice.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +45,32 @@ class MainActivity : AppCompatActivity() {
 //                else ->{ binding.bottomToolbar.visibility = View.VISIBLE }
             }
         }
+
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(navListener)
+
     }
+
+    private val navListener: BottomNavigationView.OnNavigationItemSelectedListener =
+        object : BottomNavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+                when (item.itemId) {
+                    R.id.findFragment ->
+                        if (navController.currentDestination?.id != R.id.findFragment) {
+                            navController.navigate(R.id.findFragment)
+                            return true
+                        }
+                    R.id.homeFragment ->
+                        if (navController.currentDestination?.id != R.id.homeFragment) {
+                            navController.navigate(R.id.homeFragment)
+                        }
+                    R.id.profileFragment ->
+                        if (navController.currentDestination?.id != R.id.profileFragment) {
+                            navController.navigate(R.id.profileFragment)
+                        }
+                }
+                return true
+            }
+        }
 
 }

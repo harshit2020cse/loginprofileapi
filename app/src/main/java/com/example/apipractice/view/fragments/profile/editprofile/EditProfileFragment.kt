@@ -1,20 +1,22 @@
-package com.example.apipractice.view.fragments.profile
+package com.example.apipractice.view.fragments.profile.editprofile
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
+import com.example.apipractice.databinding.FragmentEditProfileBinding
 import com.example.apipractice.databinding.FragmentProfileBinding
+import com.example.apipractice.view.fragments.profile.ProfileViewModel
 
-class ProfileFragment : Fragment() {
+class EditProfileFragment : Fragment() {
 
-    lateinit var binding: FragmentProfileBinding
-    lateinit var profileViewModel: ProfileViewModel
+    lateinit var binding: FragmentEditProfileBinding
+    lateinit var editProfileViewModel: EditProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +25,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
-            R.layout.fragment_profile,
+            R.layout.fragment_edit_profile,
             container,
             false
         )
@@ -34,8 +36,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = this
-        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        binding.viewModel = profileViewModel
+        editProfileViewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        binding.viewModel = editProfileViewModel
         binding.executePendingBindings()
 
         setClickListener()
@@ -43,8 +45,11 @@ class ProfileFragment : Fragment() {
 
     private fun setClickListener() {
 
-        binding.editDetailsTextView.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        /* Cancel Button Click */
+        binding.cancelButton.setOnClickListener {
+
+            /* Go Back */
+            findNavController().navigateUp()
         }
     }
 }
