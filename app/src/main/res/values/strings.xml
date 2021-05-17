@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">API Practice</string>
+
+    <!--  Bottom Navigation Item Strings  -->
+    <string name="find">find</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+
+    <!-- Login Fragment UI Strings -->
+    <string name="accept_terms_privacy_text"><![CDATA[By logging in, you agree to our T&C and Privacy Policy.]]></string>
+    <string name="terms_condition_key">T&amp;C</string>
+    <string name="privacy_policy_key">Privacy Policy</string>
+    <string name="successfully_logged_in">Successfully Logged In</string>
+    <string name="unique_id">Unique ID</string>
+    <string name="unique_id_hint">V3612MA10001</string>
+    <string name="password_hint">**********</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="signup">SignUp</string>
+
 </resources>
