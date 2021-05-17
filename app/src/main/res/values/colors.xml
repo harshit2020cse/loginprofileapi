@@ -7,4 +7,31 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="colorBlue">#18206F</color>
+    <color name="colorExtraDarkBlue">#11164E</color>
+    <color name="colorPink">#E91E63</color>
+    <color name="colorOnBlue">#0008FF</color>
+    <color name="colorMidBlue">#361E80</color>
+    <color name="colorDarkBlue">#262163</color>
+    <color name="colorOnDarkBlue">#262262</color>
+    <color name="colorLightGrey">#DADADA</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBackground">#88EAEAEA</color>
+    <color name="colorRed">#EE4035</color>
+    <color name="colorChart">#F2EFFF</color>
+    <color name="colorLightGreen">#00BC45</color>
+    <color name="backgroundWhiteTransparent">#CCFFFFFF</color>
+    <color name="colorLRating">#0099CD</color>
+    <color name="colorYellow">#FF9200</color>
+    <color name="colorExtraLightGrey">#F5F5F5</color>
+    <color name="colorShadowGrey">#0000000D</color>
+    <color name="colorLDarkRed">#B4000C</color>
+    <color name="colorLLightRed">#FF7600</color>
+    <color name="colorOnRed">#DD4036</color>
+    <color name="colorLightSage">#E1E1E1</color>
+    <color name="dialogBackground">#8CFFFFFF</color>
+    <color name="colorAccent">#E6F3FF</color>
 </resources>
