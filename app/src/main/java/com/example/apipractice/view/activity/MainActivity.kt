@@ -42,7 +42,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
-//                else ->{ binding.bottomToolbar.visibility = View.VISIBLE }
+                R.id.loginFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
             }
         }
 

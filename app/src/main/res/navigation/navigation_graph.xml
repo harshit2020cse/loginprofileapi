@@ -57,7 +57,16 @@
         android:id="@+id/homeFragment"
         android:name="com.example.apipractice.view.fragments.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.apipractice.view.fragments.profile.editprofile.EditProfileFragment"
