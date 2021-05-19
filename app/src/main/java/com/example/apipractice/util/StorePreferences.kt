@@ -2,7 +2,6 @@ package com.example.apipractice.util
 
 
 import android.content.Context
-import android.media.session.MediaSession
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.createDataStore
@@ -22,23 +21,23 @@ class StorePreferences(context: Context) {
 
     }
 
-    suspend fun setToken(loginData: String){
+    suspend fun setToken(loginData: String) {
         dataStore.edit {
             it[Token] = loginData
         }
     }
 
-    suspend fun setUser(userType: String){
+    suspend fun setUser(userType: String) {
         dataStore.edit {
             it[User] = userType
         }
     }
 
-    val getToken : Flow<String> = dataStore.data.map {
+    val getToken: Flow<String> = dataStore.data.map {
         it[Token] ?: ""
     }
 
-    val getUser : Flow<String> = dataStore.data.map {
+    val getUser: Flow<String> = dataStore.data.map {
         it[User] ?: ""
     }
 

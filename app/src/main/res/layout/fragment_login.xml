@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.apipractice.view.fragments.login.LoginViewModel" />
+            type="com.example.apipractice.view.fragments.login.LoginVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -16,6 +16,7 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="@dimen/_16sdp">
@@ -43,6 +44,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/uniqueIdEditText"
                 style="@style/EditTextStyle"
+                setError="@{viewModel.isValidUsername()}"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:hint="@string/unique_id_hint"
                 android:inputType="textPersonName"
@@ -63,6 +65,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEditText"
                 style="@style/EditTextStyle"
+                setError="@{viewModel.isValidPassword()}"
                 android:layout_marginBottom="@dimen/_14sdp"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
@@ -115,12 +118,13 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ProgressBar
+                visibleOrGone="@{viewModel.progressBarVisible}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:indeterminateTint="@color/colorExtraDarkBlue"
                 android:indeterminateTintMode="src_atop"
-                android:visibility="@{viewModel.visible}"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.apipractice.view.fragments.home.HomeViewModel" />
+            type="com.example.apipractice.view.fragments.home.HomeVM" />
 
     </data>
 

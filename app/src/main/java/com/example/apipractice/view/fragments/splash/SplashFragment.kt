@@ -1,28 +1,29 @@
 package com.example.apipractice.view.fragments.splash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import com.example.apipractice.AppConstant
 import com.example.apipractice.R
-import com.example.apipractice.databinding.FragmentLoginBinding
 import com.example.apipractice.databinding.FragmentSplashBinding
-import com.example.apipractice.view.fragments.login.LoginViewModel
+import com.example.apipractice.util.StorePreferences
 
 class SplashFragment : Fragment() {
 
     lateinit var binding: FragmentSplashBinding
-    lateinit var splashViewModel: SplashViewModel
+    private lateinit var splashViewModel: SplashViewModel
+    lateinit var storePreferences: StorePreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
@@ -39,10 +40,15 @@ class SplashFragment : Fragment() {
         binding.lifecycleOwner = this
         splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
         binding.viewModel = splashViewModel
-        binding.executePendingBindings()
 
-        findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-
+        storePreferences = StorePreferences(requireContext())
+        storePreferences.getUser.asLiveData().observe(requireActivity(), {
+            if (it == AppConstant.USER_TYPE.PATIENT) {
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        })
         setClickListener()
     }
 

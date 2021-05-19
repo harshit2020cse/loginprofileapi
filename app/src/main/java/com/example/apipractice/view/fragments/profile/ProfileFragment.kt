@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
 import com.example.apipractice.databinding.FragmentProfileBinding
+import com.example.apipractice.util.StorePreferences
 
 class ProfileFragment : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
-    lateinit var profileViewModel: ProfileViewModel
+    lateinit var viewModel: ProfileVM
+    lateinit var storePreferences: StorePreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,16 +29,17 @@ class ProfileFragment : Fragment() {
             container,
             false
         )
+        viewModel = ViewModelProvider(this).get(ProfileVM::class.java)
+        binding.viewModel = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        storePreferences = StorePreferences(requireContext())
 
-        binding.lifecycleOwner = this
-        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        binding.viewModel = profileViewModel
-        binding.executePendingBindings()
+        // call API
+        viewModel.getProfileData()
 
         setClickListener()
     }

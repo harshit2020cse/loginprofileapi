@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
 import com.example.apipractice.databinding.FragmentEditProfileBinding
-import com.example.apipractice.databinding.FragmentProfileBinding
-import com.example.apipractice.view.fragments.profile.ProfileViewModel
 
 class EditProfileFragment : Fragment() {
 

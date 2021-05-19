@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.apipractice.view.fragments.profile.ProfileViewModel" />
+            type="com.example.apipractice.view.fragments.profile.ProfileVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +44,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/profileImageView"
+                    imageurl="@{viewModel.profilePictureField}"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_100sdp"
                     android:layout_marginTop="@dimen/_16sdp"
@@ -56,11 +57,11 @@
                     android:id="@+id/editProfilePicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:background="?android:selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:layout_marginBottom="@dimen/_4sdp"
                     android:padding="@dimen/_6sdp"
                     android:text="@string/edit"
                     android:textColor="@color/colorExtraDarkBlue"
@@ -73,7 +74,8 @@
                     style="@style/TextViewStyle.BOLD"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/harshit_kumar"
+                    android:inputType="textCapWords"
+                    android:text="@{viewModel.firstNameField + ' ' + viewModel.lastNameField}"
                     android:textSize="@dimen/extra_large_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +87,7 @@
                     style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:text="@string/phone_number_sample"
+                    android:text="@{String.format(@string/country_code_format, viewModel.phoneNumberField)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,55 +131,54 @@
                         style="@style/TextViewStyle.MEDIUM"
                         android:layout_width="wrap_content"
                         android:text="@string/date_of_birth_"
+                        app:layout_constraintBaseline_toBaselineOf="@id/dobValueTextView"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/dobValueTextView"
                         style="@style/TextViewStyle"
-                        android:text="20-05-1999"
-                        app:layout_constraintBaseline_toBaselineOf="@id/dobTextView"
+                        android:text="@{viewModel.dobField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/divider"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="20-05-1999" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/bloodGroupTextView"
                         style="@style/TextViewStyle.MEDIUM"
-                        android:layout_marginTop="@dimen/_6sdp"
                         android:text="@string/blood_group"
+                        app:layout_constraintBaseline_toBaselineOf="@id/bloodGroupValueTextView"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/dobTextView" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/bloodGroupValueTextView"
                         style="@style/TextViewStyle.MEDIUM"
-                        android:text="AB+"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@{viewModel.bloodGroup}"
                         android:textColor="@color/colorLDarkRed"
-                        app:layout_constraintBaseline_toBaselineOf="@id/bloodGroupTextView"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/divider"
+                        app:layout_constraintTop_toBottomOf="@id/dobTextView"
                         tools:text="AB+" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/medoIdTextView"
                         style="@style/TextViewStyle.MEDIUM"
-                        android:layout_marginTop="@dimen/_6sdp"
                         android:text="@string/medoplus_id"
+                        app:layout_constraintBaseline_toBaselineOf="@id/medoIdValueTextView"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bloodGroupTextView" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/medoIdValueTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:text="PAP12MA00031"
+                        android:text="@{viewModel.medoPlusIdField.trim()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/divider"
                         app:layout_constraintTop_toBottomOf="@id/bloodGroupValueTextView"
@@ -186,41 +187,39 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alternatePhoneNumberTextView"
                         style="@style/TextViewStyle.MEDIUM"
-                        android:layout_marginTop="@dimen/_6sdp"
                         android:text="@string/_1st_alternate_number"
+                        app:layout_constraintBaseline_toBaselineOf="@id/alternatePhoneNumberValueTextView"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/medoIdTextView" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alternatePhoneNumberValueTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:text="+91 7037302671"
-                        app:layout_constraintBaseline_toBaselineOf="@id/alternatePhoneNumberTextView"
+                        android:text="@{String.format(@string/country_code_format, viewModel.firstAlternatePhoneNumberField)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/divider"
+                        app:layout_constraintTop_toBottomOf="@id/medoIdValueTextView"
                         tools:text="+91 7037302671" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alternateSecondPhoneNumberTextView"
                         style="@style/TextViewStyle.MEDIUM"
-                        android:layout_marginTop="@dimen/_6sdp"
                         android:text="@string/_2nd_alternate_number"
+                        app:layout_constraintBaseline_toBaselineOf="@id/alternateSecondPhoneNumberValueTextView"
                         app:layout_constraintEnd_toStartOf="@id/divider"
                         app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/alternatePhoneNumberTextView" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/alternateSecondPhoneNumberValueTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:text="+91 7037302671"
-                        app:layout_constraintBaseline_toBaselineOf="@id/alternateSecondPhoneNumberTextView"
+                        android:text="@{String.format(@string/country_code_format, viewModel.secondAlternatePhoneNumberField)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/divider"
+                        app:layout_constraintTop_toBottomOf="@id/alternatePhoneNumberTextView"
                         tools:text="+91 7037302671" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -249,7 +248,7 @@
                         android:id="@+id/addressValueTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:text="@string/address_sample"
+                        android:text="@{viewModel.addressFirstField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/addressTextView"
@@ -267,6 +266,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/addressDetailsLayout"
                     app:layout_constraintVertical_bias="0" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/colorExtraDarkBlue"
+                    android:indeterminateTintMode="src_atop"
+                    android:visibility="gone"
+                    visibleOrGone="@{viewModel.progressBarVisible}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

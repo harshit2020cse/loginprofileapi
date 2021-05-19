@@ -1,8 +1,9 @@
 package com.example.apipractice.data
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
-
+@Keep
 data class ProfileData(
 //    @SerializedName("healthInsurance") val healthInsurance: ProfileHealthInsurance? = null,
 //    val medicalHistories: List<MedicalHistoryData>? = null,
@@ -23,7 +24,7 @@ data class ProfileData(
     @SerializedName("address") val address: ProfileAddress? = null,
     val number: String? = null,
 //    @SerializedName("documents") val documents: List<ProfileDocument>? = null,
-//    @SerializedName("pictures") val pictures: List<ProfileDocument>? = null,
+    @SerializedName("pictures") val pictures: List<ProfileDocument>? = null,
     @SerializedName("__v") val __v: Double? = null,
     val medoplusId: String? = null,
     @SerializedName("_family") val _family: String? = null,

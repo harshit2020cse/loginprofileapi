@@ -6,6 +6,11 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
 
+    <!--  Common Strings  -->
+    <string name="logged_out">Logged Out</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="country_code_format">+91 %1$s</string>
+
     <!--  Dummy Strings  -->
     <string name="address_sample">Vill Budpur Mufti Post Barampur Bhojpur Kiratpur District Bijnor Uttar Pradesh 246731, India</string>
     <string name="harshit_kumar">Harshit Kumar</string>
@@ -23,6 +28,8 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="login">Login</string>
     <string name="signup">SignUp</string>
+    <string name="please_enter_medoID">Please enter MedoPlus ID</string>
+    <string name="please_enter_password">Please enter Password</string>
 
     <!-- Profile Fragment Strings -->
     <string name="profile_details">Profile Details</string>
