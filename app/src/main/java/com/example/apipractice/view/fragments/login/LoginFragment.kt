@@ -54,7 +54,6 @@ class LoginFragment : Fragment(), AuthListener {
                     resources.getString(R.string.logged_out),
                     Snackbar.LENGTH_SHORT
                 ).show()
-
         }
         setClickListener()
     }
@@ -67,14 +66,34 @@ class LoginFragment : Fragment(), AuthListener {
 
     override fun onSuccess(loginResponse: LiveData<LoginModel>) {
         loginResponse.observe(this, {
+
+            //TODO Use Coroutines in ViewModel
+
+            /** Store TOKEN in DataStore*/
             GlobalScope.launch {
-                it.data?.token?.let { it1 -> storePreferences.setToken(it1) }
-                it.data?.userType?.let { it1 -> storePreferences.setUser(it1) }
+                it.data?.token?.let { it1 ->
+                    storePreferences.storeValue(
+                        StorePreferences.TOKEN,
+                        it1
+                    )
+                }
+                viewModel.app.setToken(it.data?.token)
+
+                /** Store USER_TYPE in DataStore*/
+                it.data?.userType?.let { it1 ->
+                    storePreferences.storeValue(
+                        StorePreferences.USER_TYPE,
+                        it1
+                    )
+                }
             }
-            Log.e(TAG, "response $it")
+
+            Log.e(TAG, "Response $it")
+
+            /** SnackBar Login Message*/
             Snackbar.make(requireContext(), binding.mainLayout, it.message, Snackbar.LENGTH_SHORT)
                 .show()
-            if (it.message == "Login success") {
+            if (it.data?.userType == AppConstant.USER_TYPE.PATIENT) {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         })

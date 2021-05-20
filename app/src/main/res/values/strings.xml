@@ -10,6 +10,7 @@
     <string name="logged_out">Logged Out</string>
     <string name="login_successful">Login Successful</string>
     <string name="country_code_format">+91 %1$s</string>
+    <string name="welcome_to_medoplus">Welcome to Medoplus</string>
 
     <!--  Dummy Strings  -->
     <string name="address_sample">Vill Budpur Mufti Post Barampur Bhojpur Kiratpur District Bijnor Uttar Pradesh 246731, India</string>
@@ -73,5 +74,6 @@
     <string name="enter_blood_group">Enter blood group</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
+    <string name="profile_updated_successfully">Profile Updated Successfully</string>
 
 </resources>

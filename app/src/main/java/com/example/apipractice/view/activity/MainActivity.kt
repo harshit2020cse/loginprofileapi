@@ -1,13 +1,13 @@
 package com.example.apipractice.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.apipractice.R
@@ -19,17 +19,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
     lateinit var storePreferences: StorePreferences
-
-    /** Auth Token - Used in API Authorization */
-    private var authToken: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         storePreferences = StorePreferences(this)
         observeData()
+
+//        navController = Navigation.findNavController(this, R.id.fragment_container)
 
         /**
          * To Hide or Show from Bottom navigation View for specific fragments
@@ -46,13 +45,10 @@ class MainActivity : AppCompatActivity() {
          */
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment -> {
+                R.id.homeFragment, R.id.profileFragment -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
-                R.id.profileFragment -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                }
-                R.id.loginFragment -> {
+                R.id.loginFragment, R.id.splashFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
             }
@@ -66,17 +62,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun observeData() {
-        val app = MyApplication()
-        app.getApplication()
-        storePreferences.getToken.asLiveData().observe(this, {
-            app.setToken(it)
-            authToken = it
-        })
-        storePreferences.getUser.asLiveData().observe(this, {
-            app.setUserType(it)
-            Log.e("Get User", "profile ${app.getUserType()}")
-        })
+    fun observeData() {
+
+        val app = MyApplication.getApplication()
+        storePreferences.readValue(StorePreferences.TOKEN).asLiveData().observe(this,
+            {
+                app.setToken(it)
+            }
+        )
+        storePreferences.readValue(StorePreferences.USER_TYPE).asLiveData().observe(this,
+            {
+                app.setUserType(it)
+            }
+        )
+        storePreferences.readValue(StorePreferences.DEMAND_PROFILE_DATA).asLiveData()
+            .observe(this,
+                {
+                    if (it != null) {
+                        app.setProfileData(it)
+                    }
+                }
+            )
     }
 
 

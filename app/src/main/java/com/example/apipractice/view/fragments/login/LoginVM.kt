@@ -3,12 +3,14 @@ package com.example.apipractice.view.fragments.login
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.example.apipractice.application.MyApplication
 import com.example.apipractice.base.BaseModel
 import com.example.apipractice.networkcall.AuthListener
 import com.example.apipractice.repo.AuthRepository
 import com.google.gson.JsonObject
 
 class LoginVM : ViewModel() {
+
     /* UI Fields */
     val usernameField = ObservableField("PAP12MA00031")
     val passwordField = ObservableField("12345678")
@@ -16,7 +18,9 @@ class LoginVM : ViewModel() {
     val isValidPassword = ObservableField(BaseModel(true))
     val progressBarVisible = ObservableBoolean(false)
     var authListener: AuthListener? = null
+    val app = MyApplication.getApplication()
 
+    /* Login Click*/
     fun setLogin() {
 
         /* Check Username */

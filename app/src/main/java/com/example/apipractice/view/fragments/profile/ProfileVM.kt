@@ -5,9 +5,12 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.ProfileData
 import com.example.apipractice.data.ProfileModel
+import com.example.apipractice.networkcall.ProfileListener
 import com.example.apipractice.repo.AuthApiService
+import com.example.apipractice.repo.AuthRepository
 import com.example.apipractice.ui.DateFormatUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,33 +31,16 @@ class ProfileVM : ViewModel() {
     val firstAlternatePhoneNumberField = ObservableField("")
     val secondAlternatePhoneNumberField = ObservableField("")
     val bloodGroup = ObservableField("")
-
-    val loginResponse = MutableLiveData<ProfileModel>()
+    var profileListener: ProfileListener? = null
+    val app = MyApplication.getApplication()
 
     fun getProfileData() {
         progressBarVisible.set(true)
-        AuthApiService().getProfile()
-            .enqueue(object : Callback<ProfileModel> {
-                override fun onResponse(
-                    call: Call<ProfileModel>,
-                    response: Response<ProfileModel>
-                ) {
-                    if (response.isSuccessful) {
-                        loginResponse.value = response.body()
-                        response.body()?.data?.let { setUIData(it) }
-                        Log.e("ProfileData", "profile ${response.body()}")
-
-                    }
-                }
-
-                override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
-
-                }
-
-            })
+        val loginResponse = AuthRepository().getProfile()
+        profileListener?.onSuccess(loginResponse)
         progressBarVisible.set(false)
-    }
 
+    }
 
     /**
      * Set Ui Data

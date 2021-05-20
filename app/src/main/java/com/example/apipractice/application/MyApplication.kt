@@ -6,22 +6,30 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.multidex.MultiDex
+import com.example.apipractice.data.ProfileData
 
-
+//TODO Proper Commenting on Methods with Parameters
+//TODO Make All Data Classes Parcelable and use @Keep Annotation (if not used)
 class MyApplication : Application() {
 
     lateinit var currentActivity: AppCompatActivity
-
-    private var mInstance: MyApplication? = null
 
     private var loginToken: String = ""
 
     private var loginUserType: String? = ""
 
+    private var userProfileData: ProfileData? = null
 
-    @Synchronized
-    fun getApplication(): MyApplication? {
-        return mInstance
+
+    companion object {
+
+        lateinit var mInstance: MyApplication
+
+        @Synchronized
+        fun getApplication(): MyApplication {
+            return mInstance
+        }
+
     }
 
     override fun attachBaseContext(base: Context?) {
@@ -70,6 +78,13 @@ class MyApplication : Application() {
         loginUserType = user ?: ""
     }
 
+    fun getToken() = loginToken
+
     fun getUserType() = loginUserType
 
+    fun setProfileData(profileData: ProfileData) {
+        userProfileData = profileData
+    }
+
+    fun getProfileData() = userProfileData
 }

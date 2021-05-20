@@ -53,7 +53,7 @@
         android:id="@+id/profileFragment"
         android:name="com.example.apipractice.view.fragments.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
@@ -67,19 +67,33 @@
         android:id="@+id/homeFragment"
         android:name="com.example.apipractice.view.fragments.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_home">
+
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.apipractice.view.fragments.profile.editprofile.EditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile"/>
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/fade_out"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpTo="@id/navigation_graph"
+        app:popUpToInclusive="true" />
 </navigation>

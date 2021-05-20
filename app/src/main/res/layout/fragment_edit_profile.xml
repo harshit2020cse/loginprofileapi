@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.apipractice.view.fragments.profile.editprofile.EditProfileViewModel" />
+            type="com.example.apipractice.view.fragments.profile.editprofile.EditProfileVM" />
 
     </data>
 
@@ -64,6 +64,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_first_name"
                         android:inputType="textPersonName"
+                        android:text="@={viewModel.firstNameField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/firstNameTextView" />
@@ -83,6 +84,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_last_name"
                         android:inputType="textPersonName"
+                        android:text="@={viewModel.lastNameField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/lastNameTextView"
                         app:layout_constraintTop_toBottomOf="@id/lastNameTextView" />
@@ -114,6 +116,7 @@
                         android:drawableEnd="@drawable/ic_calendar"
                         android:gravity="center_vertical"
                         android:hint="@string/dd_mm_yyyy"
+                        android:text="@={viewModel.dobField}"
                         android:textColorHint="?attr/colorControlHighlight"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +128,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/address_line_1"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/dobValueTextView"
                         tools:text="Address Line 1*" />
@@ -137,6 +141,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/enter_address"
                         android:textColorHint="?attr/colorControlHighlight"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHeight_min="@dimen/_40sdp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -148,6 +153,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/address_line_2"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/addressLine1TextViewValue"
                         tools:text="Address Line 2*" />
@@ -162,6 +168,7 @@
                         android:minLines="1"
                         android:scrollbars="vertical"
                         android:textColorHint="?attr/colorControlHighlight"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/addressLine2TextView" />
@@ -172,6 +179,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="@string/pin_code"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/addressLine2EditText" />
 
@@ -181,6 +189,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_pin_code"
                         android:inputType="number"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/pinCodeTextView" />
@@ -191,6 +200,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/state"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/pinCodeEditText" />
 
@@ -201,6 +211,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/enter_state"
                         android:textColorHint="?attr/colorControlHighlight"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/stateTextView"
                         app:layout_constraintTop_toBottomOf="@id/stateTextView" />
@@ -211,6 +222,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/district"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/statetextSpinner" />
 
@@ -220,6 +232,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_district"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/districtTextView" />
@@ -230,6 +243,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/block"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/districtTextSpinner" />
 
@@ -240,6 +254,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_block"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/blockTextView" />
@@ -259,6 +274,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_1st_alternate_number"
                         android:inputType="number"
+                        android:text="@={viewModel.alternatePhoneFirstNumberField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/firstAlternateNoTextView" />
@@ -278,6 +294,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_2nd_alternate_number"
                         android:inputType="number"
+                        android:text="@={viewModel.alternatePhoneSecondNumberField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/secondAlternateNoTextView" />
@@ -288,6 +305,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/blood_group_"
                         android:textColor="@color/colorOnDarkBlue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/secondAlternateNoEditText" />
 
@@ -297,6 +315,7 @@
                         android:layout_marginTop="@dimen/_4sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_blood_group"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bloodGroupTextView" />
