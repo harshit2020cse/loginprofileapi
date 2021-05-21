@@ -3,6 +3,7 @@ package com.example.apipractice.view.fragments.login
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.example.apipractice.AppConstant
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.base.BaseModel
 import com.example.apipractice.networkcall.AuthListener
@@ -20,7 +21,7 @@ class LoginVM : ViewModel() {
     var authListener: AuthListener? = null
     val app = MyApplication.getApplication()
 
-    /* Login Click*/
+    /** Login Button Click*/
     fun setLogin() {
 
         /* Check Username */
@@ -28,7 +29,7 @@ class LoginVM : ViewModel() {
             /* Notify User */
             isValidUsername.set(
                 BaseModel(
-                    message = "Please enter valid id"
+                    message = "Please enter valid MedoPlus ID"
                 )
             )
             isValidPassword.set(BaseModel(true))
@@ -42,7 +43,7 @@ class LoginVM : ViewModel() {
             /* Notify User */
             isValidPassword.set(
                 BaseModel(
-                    message = "Please enter valid password"
+                    message = "Invalid Password"
                 )
             )
             isValidUsername.set(BaseModel(true))
@@ -51,7 +52,7 @@ class LoginVM : ViewModel() {
         if (passwordField.get()?.length!! < 8) {
             isValidPassword.set(
                 BaseModel(
-                    message = "length > 8"
+                    message = "Invalid Password"
                 )
             )
             isValidUsername.set(BaseModel(true))
@@ -60,16 +61,29 @@ class LoginVM : ViewModel() {
 
         usernameField.set(usernameField.get()?.trim())
 
+        /* POST Request Body Parameters */
         val sessionJsonObject = JsonObject()
-        sessionJsonObject.addProperty("device", "ANDROID")
-        sessionJsonObject.addProperty("fcmToken", "fcmToken")
-        sessionJsonObject.addProperty("deviceId", "deviceId")
-        sessionJsonObject.addProperty("notificationsEnabled", true)
+        sessionJsonObject.addProperty(
+            AppConstant.API_PARAM_KEY.DEVICE,
+            AppConstant.API_PARAM_KEY.ANDROID
+        )
+        sessionJsonObject.addProperty(
+            AppConstant.API_PARAM_KEY.FCM_TOKEN,
+            AppConstant.API_PARAM_KEY.FCM_TOKEN
+        )
+        sessionJsonObject.addProperty(
+            AppConstant.API_PARAM_KEY.DEVICE_ID,
+            AppConstant.API_PARAM_KEY.DEVICE_ID
+        )
+        sessionJsonObject.addProperty(AppConstant.API_PARAM_KEY.NOTIFICATIONS_ENABLED, true)
 
         val jsonObject = JsonObject()
-        jsonObject.addProperty("username", usernameField.get()?.trim() ?: "")
-        jsonObject.addProperty("password", passwordField.get() ?: "")
-        jsonObject.add("session", sessionJsonObject)
+        jsonObject.addProperty(
+            AppConstant.API_PARAM_KEY.USERNAME,
+            usernameField.get()?.trim() ?: ""
+        )
+        jsonObject.addProperty(AppConstant.API_PARAM_KEY.PASSWORD, passwordField.get() ?: "")
+        jsonObject.add(AppConstant.API_PARAM_KEY.SESSION, sessionJsonObject)
 
         progressBarVisible.set(true)
         val loginResponse = AuthRepository().userLogin(jsonObject)

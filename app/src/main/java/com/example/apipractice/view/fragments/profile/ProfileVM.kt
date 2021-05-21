@@ -1,20 +1,13 @@
 package com.example.apipractice.view.fragments.profile
 
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.ProfileData
-import com.example.apipractice.data.ProfileModel
 import com.example.apipractice.networkcall.ProfileListener
-import com.example.apipractice.repo.AuthApiService
 import com.example.apipractice.repo.AuthRepository
 import com.example.apipractice.ui.DateFormatUtils
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 class ProfileVM : ViewModel() {
@@ -34,6 +27,7 @@ class ProfileVM : ViewModel() {
     var profileListener: ProfileListener? = null
     val app = MyApplication.getApplication()
 
+    /* Get API Response Data*/
     fun getProfileData() {
         progressBarVisible.set(true)
         val loginResponse = AuthRepository().getProfile()

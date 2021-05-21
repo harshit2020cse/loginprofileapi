@@ -35,6 +35,8 @@ class EditProfileFragment : Fragment(), ProfileListener {
         )
         viewModel = ViewModelProvider(this).get(EditProfileVM::class.java)
         binding.viewModel = viewModel
+
+        /* ProfileListener Interface */
         viewModel.profileListener = this
         return binding.root
     }
@@ -42,9 +44,14 @@ class EditProfileFragment : Fragment(), ProfileListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.app.getProfileData()?.let { viewModel.setUiData(it) }
+
+        /* Set Click Listener */
         setClickListener()
     }
 
+    /**
+     * Set Click Listeners
+     */
     private fun setClickListener() {
 
         /* Cancel Button Click */
@@ -60,12 +67,13 @@ class EditProfileFragment : Fragment(), ProfileListener {
         }
     }
 
-    /** Api Success*/
+    /** Get API Success Response */
     override fun onSuccess(profileResponseResponse: LiveData<ProfileModel>) {
         profileResponseResponse.observe(this, Observer {
             val bundle = bundleOf().apply {
                 putString(AppConstant.EDITPROFILE.KEY, AppConstant.EDITPROFILE.EDIT_PROFILE)
             }
+            /* Navigate to Profile Screen */
             findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment, bundle)
         })
     }

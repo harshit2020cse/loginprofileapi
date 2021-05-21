@@ -12,7 +12,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.example.apipractice.AppConstant
 import com.example.apipractice.R
 import com.example.apipractice.data.BannerImage
@@ -53,17 +52,17 @@ class HomeFragment : Fragment(), BannerListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         storePreferences = StorePreferences(requireContext())
 
         /* Get Banner List */
         viewModel.getBannerList()
 
+        /* Set Click Listeners */
         setClickListener()
     }
 
     /**
-     * Set Click Listener
+     * Set Click Listeners
      */
     private fun setClickListener() {
         /** Logout Button Click */
@@ -84,10 +83,10 @@ class HomeFragment : Fragment(), BannerListener {
 
             /* Navigate to Login */
             navController.navigate(R.id.action_global_loginFragment, bundle)
-            findNavController().navigate(R.id.action_global_loginFragment, bundle)
         }
     }
 
+    /* Get API Success Response */
     override fun onSuccess(bannerListResponse: LiveData<BannerListModel>) {
         bannerListResponse.observe(this, {
 
@@ -97,7 +96,7 @@ class HomeFragment : Fragment(), BannerListener {
             if (it.data?.get(4)?._id == AppConstant.BANNER_TYPE.HOME)
                 bannerAdapterList.add(
                     BannerHomeItemViewModel(
-                        BannerImage(imageUrl = "${it.data?.get(0)?.urls}")
+                        BannerImage(imageUrl = "${it.data[0].urls}")
                     )
                 )
         })

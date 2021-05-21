@@ -39,15 +39,18 @@ class ProfileFragment : Fragment(), ProfileListener {
         )
         viewModel = ViewModelProvider(this).get(ProfileVM::class.java)
         binding.viewModel = viewModel
-        /** ProfileListener Interface */
+
+        /* ProfileListener Interface */
         viewModel.profileListener = this
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         storePreferences = StorePreferences(requireContext())
-        /*** Profile updated Snackbar */
+
+        /* Profile Updated SnackBar */
         when (arguments?.getString(AppConstant.EDITPROFILE.KEY)) {
             AppConstant.EDITPROFILE.EDIT_PROFILE ->
                 Snackbar.make(
@@ -57,28 +60,34 @@ class ProfileFragment : Fragment(), ProfileListener {
                     Snackbar.LENGTH_SHORT
                 ).show()
         }
-        /** call API */
+        /* API Call */
         viewModel.getProfileData()
+
+        /* Set CLick Listener */
         setClickListener()
     }
 
+    /**
+     * Set Click Listeners
+     */
     private fun setClickListener() {
 
+        /* Edit Details textView Click*/
         binding.editDetailsTextView.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
     }
 
-    /** API Response success */
+    /** Get API Success Response */
     override fun onSuccess(profileResponseResponse: LiveData<ProfileModel>) {
         profileResponseResponse.observe(this, Observer {
             GlobalScope.launch {
 
-                /** Set UI data */
+                /* Set UI data */
                 it.data?.let { it1 ->
                     viewModel.setUIData(it1)
 
-                    /** Store Profile data in DataStore */
+                    /* Store Profile data in DataStore */
                     storePreferences.storeValue(StorePreferences.DEMAND_PROFILE_DATA, it1)
                     viewModel.app.setProfileData(it1)
                 }

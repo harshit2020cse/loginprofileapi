@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.apipractice.R
@@ -27,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         storePreferences = StorePreferences(this)
         observeData()
-
-//        navController = Navigation.findNavController(this, R.id.fragment_container)
 
         /**
          * To Hide or Show from Bottom navigation View for specific fragments
@@ -62,7 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun observeData() {
+    /** Set Observer to capture actions */
+    private fun observeData() {
 
         val app = MyApplication.getApplication()
         storePreferences.readValue(StorePreferences.TOKEN).asLiveData().observe(this,
@@ -84,7 +82,6 @@ class MainActivity : AppCompatActivity() {
                 }
             )
     }
-
 
     /**
      * Bottom navigation back stack handling

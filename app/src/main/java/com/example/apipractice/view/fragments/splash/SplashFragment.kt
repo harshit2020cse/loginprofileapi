@@ -1,8 +1,6 @@
 package com.example.apipractice.view.fragments.splash
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,14 +45,21 @@ class SplashFragment : Fragment() {
         storePreferences.readValue(StorePreferences.USER_TYPE).asLiveData()
             .observe(requireActivity(), {
                 if (it == AppConstant.USER_TYPE.PATIENT) {
+                    /* Navigate to Home Screen */
                     findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
                 } else {
+                    /* Navigate to Login Screen */
                     findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
                 }
             })
+
+        /* Set Click Listener */
         setClickListener()
     }
 
+    /**
+     * Set Click Listeners
+     */
     private fun setClickListener() {
 
     }

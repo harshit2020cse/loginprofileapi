@@ -55,15 +55,19 @@ class LoginFragment : Fragment(), AuthListener {
                     Snackbar.LENGTH_SHORT
                 ).show()
         }
+
+        /* Set CLick Listener*/
         setClickListener()
     }
 
+    /** Set Click Listeners */
     private fun setClickListener() {
         binding.loginButton.setOnClickListener {
             viewModel.setLogin()
         }
     }
 
+    /* Get API Success Response */
     override fun onSuccess(loginResponse: LiveData<LoginModel>) {
         loginResponse.observe(this, {
 
@@ -93,6 +97,7 @@ class LoginFragment : Fragment(), AuthListener {
             /** SnackBar Login Message*/
             Snackbar.make(requireContext(), binding.mainLayout, it.message, Snackbar.LENGTH_SHORT)
                 .show()
+            /* Navigate to Home Screen */
             if (it.data?.userType == AppConstant.USER_TYPE.PATIENT) {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }

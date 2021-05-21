@@ -2,11 +2,6 @@ package com.example.apipractice
 
 object AppConstant {
 
-    // const val BASE_URL: String = "http://medoplus.api.relinns.com.au/"
-    const val BASE_URL: String = "https://stage.api.medoplus.org/"
-
-    const val KEY = "KEY"
-
     /**
      * API Param Keys
      *
