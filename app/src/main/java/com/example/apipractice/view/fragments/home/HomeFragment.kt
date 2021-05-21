@@ -12,8 +12,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.example.apipractice.R
 import com.example.apipractice.application.AppConstant
+import com.example.apipractice.base.BaseCommonAdapter
 import com.example.apipractice.data.BannerImage
 import com.example.apipractice.data.BannerListModel
 import com.example.apipractice.databinding.FragmentHomeBinding
@@ -27,10 +30,7 @@ class HomeFragment : Fragment(), BannerListener {
     lateinit var binding: FragmentHomeBinding
     lateinit var viewModel: HomeVM
     lateinit var storePreferences: StorePreferences
-    lateinit var navController: NavController
-
-    /* Data List */
-    var bannerAdapterList: ArrayList<BannerHomeItemViewModel> = ArrayList()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +57,26 @@ class HomeFragment : Fragment(), BannerListener {
         /* Get Banner List */
         viewModel.getBannerList()
 
+        initView()
         /* Set Click Listeners */
         setClickListener()
+    }
+
+    /**
+     * Initialize
+     * */
+    private fun initView() {
+
+        if (viewModel.bannerAdapter == null) {
+
+            /* Banner Adapter */
+            viewModel.bannerAdapter =
+                BaseCommonAdapter(viewModel.bannerAdapterList)
+        }
+        binding.bannerRecyclerView.adapter = viewModel.bannerAdapter
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.bannerRecyclerView)
     }
 
     /**
@@ -88,22 +106,25 @@ class HomeFragment : Fragment(), BannerListener {
 
     /* Get API Success Response */
     override fun onSuccess(bannerListResponse: LiveData<BannerListModel>) {
-        bannerListResponse.observe(this, {
+        bannerListResponse.observe(this, { it ->
 
             //TODO Use Coroutines in ViewModel
-            Log.e("List", "List ${it.data?.get(0)?.urls}")
 
-//            var i = 0
-//            for (i in i < it.data.) {
+            viewModel.bannerAdapterList.clear()
+            it.data?.forEach { it1 ->
+                if (it1._id == AppConstant.BANNER_TYPE.HOME) {
+                    it1.urls?.forEach {
+                        viewModel.bannerAdapterList.add(
+                            BannerHomeItemViewModel(
+                                BannerImage(imageUrl = it.en)
+                            )
+                        )
 
-//            if (it.data?.get(4)?._id == AppConstant.BANNER_TYPE.HOME)
-//                bannerAdapterList.add(
-//                    BannerHomeItemViewModel(
-//                        BannerImage(imageUrl = "${it.data[0].urls}")
-//                    )
-//                )
-
-
+                    }
+                }
+            }
+            Log.e("ADAPTER", "ADAPTER : " + viewModel.bannerAdapterList.size)
+            viewModel.bannerAdapter?.notifyDataSetChanged()
         })
     }
 }

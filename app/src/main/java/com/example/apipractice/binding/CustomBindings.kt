@@ -6,7 +6,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.apipractice.R
 import com.example.apipractice.base.BaseModel
@@ -22,7 +21,7 @@ class CustomBindings {
                 .load(url)
                 .apply(
                     RequestOptions().placeholder(R.drawable.ic_account).centerCrop()
-                        .transform(CenterCrop(), RoundedCorners(1000))
+                        .transform(CenterCrop())
                 )
                 .into(view)
         }
