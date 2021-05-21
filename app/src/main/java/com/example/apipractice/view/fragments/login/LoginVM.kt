@@ -14,7 +14,7 @@ import com.google.gson.JsonObject
 
 class LoginVM : ViewModel() {
 
-    val resourceProvider = ResourceProvider(MyApplication.getApplication())
+    private val resourceProvider = ResourceProvider(MyApplication.getApplication())
     /* UI Fields */
     val usernameField = ObservableField("PAP12MA00031")
     val passwordField = ObservableField("12345678")

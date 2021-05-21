@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.data.ProfileModel
 import com.example.apipractice.databinding.FragmentProfileBinding
 import com.example.apipractice.networkcall.ProfileListener
@@ -29,7 +28,7 @@ class ProfileFragment : Fragment(), ProfileListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
@@ -80,7 +79,7 @@ class ProfileFragment : Fragment(), ProfileListener {
 
     /** Get API Success Response */
     override fun onSuccess(profileResponseResponse: LiveData<ProfileModel>) {
-        profileResponseResponse.observe(this, Observer {
+        profileResponseResponse.observe(this, {
             GlobalScope.launch {
 
                 /* Set UI data */

@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
-import com.example.apipractice.application.MyApplication
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.data.LoginModel
 import com.example.apipractice.databinding.FragmentLoginBinding
 import com.example.apipractice.networkcall.AuthListener
@@ -26,7 +25,6 @@ class LoginFragment : Fragment(), AuthListener {
 
     lateinit var binding: FragmentLoginBinding
     lateinit var viewModel: LoginVM
-    val app = MyApplication()
     lateinit var storePreferences: StorePreferences
 
     override fun onCreateView(

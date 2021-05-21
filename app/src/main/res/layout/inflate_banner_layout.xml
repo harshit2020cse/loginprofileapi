@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,12 +12,12 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bannerImage"
+        imageurl="@{data.bannerImage.imageUrl}"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_130sdp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        imageurl="@{data.bannerImage.imageUrl}"
-        android:src="@drawable/banner_image">
+        tools:src="@drawable/banner_image">
 
     </androidx.appcompat.widget.AppCompatImageView>
 
