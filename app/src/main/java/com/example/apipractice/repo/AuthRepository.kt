@@ -85,7 +85,7 @@ class AuthRepository {
                     call: Call<BannerListModel>,
                     response: Response<BannerListModel>
                 ) {
-//                    Log.e("BannerResponse", "${response.body()}")
+                    Log.e("BannerResponse", "${response.body()}")
                     if (response.isSuccessful) {
                         bannerResponse.value = response.body()
                     }

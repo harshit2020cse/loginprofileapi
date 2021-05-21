@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.AppConstant
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
 import com.example.apipractice.databinding.FragmentSplashBinding
 import com.example.apipractice.util.StorePreferences

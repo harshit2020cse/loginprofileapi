@@ -4,6 +4,7 @@ import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 
+@Parcelize
 @Keep
 data class Data(
     val __v: Int?,
@@ -13,9 +14,10 @@ data class Data(
     val updatedAt: String?,
     val url: String?,
     val urls: List<Lan>?
-)
+) : Parcelable
 
+
+@Parcelize
 data class Lan(
-    val en: String?,
-    val hi: String?,
-)
+    val en: String?
+) : Parcelable

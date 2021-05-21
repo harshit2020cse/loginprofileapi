@@ -10,6 +10,5 @@ data class BannerImage(
     val __v: Int? = null,
     val _id: String? = null,
     val type: String? = null,
-    val url: String? = null,
     val imageUrl: String? = null
 ) : Parcelable

@@ -26,7 +26,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
     }
 
     override fun onCreateView(

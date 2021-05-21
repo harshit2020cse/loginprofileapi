@@ -12,14 +12,17 @@ import com.example.apipractice.data.ProfileData
 //TODO Make All Data Classes Parcelable and use @Keep Annotation (if not used)
 class MyApplication : Application() {
 
+    /** Running Activity Instance */
     lateinit var currentActivity: AppCompatActivity
 
+    /** Login Token - Used in API Authorization */
     private var loginToken: String = ""
 
+    /** Logged In User Type */
     private var loginUserType: String? = ""
 
+    /** LoggedIn User Profile Data */
     private var userProfileData: ProfileData? = null
-
 
     companion object {
 
@@ -70,21 +73,34 @@ class MyApplication : Application() {
 
     }
 
+    /**
+     * @param token Store Token
+     * */
     fun setToken(token: String?) {
         loginToken = token ?: ""
     }
 
+    /**
+     * @param user Store User
+     * */
     fun setUserType(user: String?) {
         loginUserType = user ?: ""
     }
 
+    /**
+     * @return Token
+     * */
     fun getToken() = loginToken
 
-    fun getUserType() = loginUserType
-
+    /**
+     * @param profileData Store Profile data
+     * */
     fun setProfileData(profileData: ProfileData) {
         userProfileData = profileData
     }
 
+    /**
+     * @return Profile Data
+     * */
     fun getProfileData() = userProfileData
 }

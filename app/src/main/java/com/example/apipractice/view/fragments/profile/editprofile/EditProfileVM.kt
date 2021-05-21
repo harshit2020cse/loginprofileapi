@@ -69,6 +69,7 @@ class EditProfileVM : ViewModel() {
         }
         Log.e(ContentValues.TAG, "response $jsonObject")
 
+        /* Get API Response */
         val profileResponse = AuthRepository().updateUserProfile(jsonObject)
         profileListener?.onSuccess(profileResponse)
     }

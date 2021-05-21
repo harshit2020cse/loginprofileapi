@@ -12,8 +12,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.apipractice.AppConstant
 import com.example.apipractice.R
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.data.BannerImage
 import com.example.apipractice.data.BannerListModel
 import com.example.apipractice.databinding.FragmentHomeBinding
@@ -35,7 +35,7 @@ class HomeFragment : Fragment(), BannerListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
@@ -93,12 +93,17 @@ class HomeFragment : Fragment(), BannerListener {
             //TODO Use Coroutines in ViewModel
             Log.e("List", "List ${it.data?.get(0)?.urls}")
 
-            if (it.data?.get(4)?._id == AppConstant.BANNER_TYPE.HOME)
-                bannerAdapterList.add(
-                    BannerHomeItemViewModel(
-                        BannerImage(imageUrl = "${it.data[0].urls}")
-                    )
-                )
+//            var i = 0
+//            for (i in i < it.data.) {
+
+//            if (it.data?.get(4)?._id == AppConstant.BANNER_TYPE.HOME)
+//                bannerAdapterList.add(
+//                    BannerHomeItemViewModel(
+//                        BannerImage(imageUrl = "${it.data[0].urls}")
+//                    )
+//                )
+
+
         })
     }
 }

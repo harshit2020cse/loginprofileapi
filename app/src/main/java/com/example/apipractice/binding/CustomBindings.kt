@@ -15,7 +15,6 @@ class CustomBindings {
 
     companion object {
 
-
         @BindingAdapter("imageurl")
         @JvmStatic
         fun bindImageView(view: AppCompatImageView, url: String) {

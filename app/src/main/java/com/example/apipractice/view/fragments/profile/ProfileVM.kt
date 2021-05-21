@@ -27,11 +27,19 @@ class ProfileVM : ViewModel() {
     var profileListener: ProfileListener? = null
     val app = MyApplication.getApplication()
 
-    /* Get API Response Data*/
+    /**
+     *  Get Profile Data
+     */
     fun getProfileData() {
+
+        /* Notify Loading */
         progressBarVisible.set(true)
+
+        /* Get API Response */
         val loginResponse = AuthRepository().getProfile()
         profileListener?.onSuccess(loginResponse)
+
+        /* Notify Loading */
         progressBarVisible.set(false)
 
     }

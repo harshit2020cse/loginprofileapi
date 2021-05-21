@@ -1,4 +1,4 @@
-package com.example.apipractice
+package com.example.apipractice.application
 
 object AppConstant {
 

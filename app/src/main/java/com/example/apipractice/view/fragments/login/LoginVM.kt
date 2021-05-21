@@ -3,15 +3,18 @@ package com.example.apipractice.view.fragments.login
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import com.example.apipractice.AppConstant
+import com.example.apipractice.R
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.base.BaseModel
+import com.example.apipractice.di.ResourceProvider
 import com.example.apipractice.networkcall.AuthListener
 import com.example.apipractice.repo.AuthRepository
 import com.google.gson.JsonObject
 
 class LoginVM : ViewModel() {
 
+    val resourceProvider = ResourceProvider(MyApplication.getApplication())
     /* UI Fields */
     val usernameField = ObservableField("PAP12MA00031")
     val passwordField = ObservableField("12345678")
@@ -29,7 +32,7 @@ class LoginVM : ViewModel() {
             /* Notify User */
             isValidUsername.set(
                 BaseModel(
-                    message = "Please enter valid MedoPlus ID"
+                    message = resourceProvider.getString(R.string.please_enter_medoID)
                 )
             )
             isValidPassword.set(BaseModel(true))
@@ -43,16 +46,7 @@ class LoginVM : ViewModel() {
             /* Notify User */
             isValidPassword.set(
                 BaseModel(
-                    message = "Invalid Password"
-                )
-            )
-            isValidUsername.set(BaseModel(true))
-            return
-        }
-        if (passwordField.get()?.length!! < 8) {
-            isValidPassword.set(
-                BaseModel(
-                    message = "Invalid Password"
+                    message = resourceProvider.getString(R.string.invalid_password)
                 )
             )
             isValidUsername.set(BaseModel(true))
@@ -85,9 +79,14 @@ class LoginVM : ViewModel() {
         jsonObject.addProperty(AppConstant.API_PARAM_KEY.PASSWORD, passwordField.get() ?: "")
         jsonObject.add(AppConstant.API_PARAM_KEY.SESSION, sessionJsonObject)
 
+        /* Notify Loading */
         progressBarVisible.set(true)
+
+        /* Get API Response */
         val loginResponse = AuthRepository().userLogin(jsonObject)
         authListener?.onSuccess(loginResponse)
+
+        /* Notify Loading */
         progressBarVisible.set(false)
     }
 

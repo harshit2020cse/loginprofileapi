@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.AppConstant
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
 import com.example.apipractice.data.ProfileModel
 import com.example.apipractice.databinding.FragmentEditProfileBinding

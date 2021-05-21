@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.AppConstant
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.LoginModel
@@ -32,7 +32,7 @@ class LoginFragment : Fragment(), AuthListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false

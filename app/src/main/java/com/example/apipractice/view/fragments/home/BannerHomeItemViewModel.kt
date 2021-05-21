@@ -1,14 +1,14 @@
 package com.example.apipractice.view.fragments.home
 
-import androidx.lifecycle.ViewModel
 import com.example.apipractice.R
+import com.example.apipractice.base.BaseViewModel
 import com.example.apipractice.data.BannerImage
 
-class BannerHomeItemViewModel(val bannerImage: BannerImage) : ViewModel() {
+class BannerHomeItemViewModel(val bannerImage: BannerImage) : BaseViewModel() {
 
     /**
      * @return Layout file i.e R.layout.view_design
      */
-    val viewType: Int = R.layout.inflate_banner_layout
+    override val viewType: Int = R.layout.inflate_banner_layout
 
 }
