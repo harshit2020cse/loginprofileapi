@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Keep
 data class LoginModel(
+    @SerializedName("status") var status: Boolean,
     @SerializedName("data") val `data`: LoginData?,
     @SerializedName("message") val message: String
 ) : Parcelable

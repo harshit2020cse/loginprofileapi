@@ -1,18 +1,25 @@
 package com.example.apipractice.view.fragments.profile.editprofile
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.ProfileData
-import com.example.apipractice.networkcall.ProfileListener
-import com.example.apipractice.repo.AuthRepository
+import com.example.apipractice.data.ProfileModel
+import com.example.apipractice.repo.AuthApiService
 import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EditProfileVM : ViewModel() {
 
-    var profileData: ProfileData? = null
+    /* Application to get context */
     val app = MyApplication.getApplication()
 
     /* Ui Fields */
@@ -21,9 +28,11 @@ class EditProfileVM : ViewModel() {
     val dobField = ObservableField("")
     val alternatePhoneFirstNumberField = ObservableField("")
     val alternatePhoneSecondNumberField = ObservableField("")
+    val responseData = MutableLiveData<String>()
+    val profileResponse = MutableLiveData<ProfileModel>()
 
     /* Data Members */
-    var profileListener: ProfileListener? = null
+    private var profileData: ProfileData? = null
 
     /**
      * Update Profile Data
@@ -67,11 +76,35 @@ class EditProfileVM : ViewModel() {
                 alternatePhoneSecondNumberField.get()
             )
         }
-        Log.e(ContentValues.TAG, "response $jsonObject")
+        Log.e(TAG, "response $jsonObject")
 
         /* Get API Response */
-        val profileResponse = AuthRepository().updateUserProfile(jsonObject)
-        profileListener?.onSuccess(profileResponse)
+        AuthApiService().updateUserProfile(jsonObject)
+            .enqueue(object : Callback<ProfileModel> {
+                override fun onResponse(
+                    call: Call<ProfileModel>,
+                    response: Response<ProfileModel>
+                ) {
+                    if (response.body()?.status == true && response.body() != null) {
+                        Log.e("Status", "Status ${response.body()?.status}")
+                        profileResponse.postValue(response.body())
+
+                        viewModelScope.launch(Dispatchers.IO) {
+
+                            app.getProfileData()?.let {
+                                setUiData(it)
+                                Log.e("ProfileData", "ProfileData ${app.getProfileData()}")
+                            }
+
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
+                    responseData.postValue(t.message.toString())
+                }
+            })
+
     }
 
     /**
@@ -86,7 +119,6 @@ class EditProfileVM : ViewModel() {
         lastNameField.set("")
         alternatePhoneFirstNumberField.set("")
         alternatePhoneSecondNumberField.set("")
-
 
         data.firstName?.en?.let {
             firstNameField.set(it.trim())
@@ -107,7 +139,5 @@ class EditProfileVM : ViewModel() {
         data.alternateNumber2?.let {
             alternatePhoneSecondNumberField.set(it)
         }
-
-
     }
 }

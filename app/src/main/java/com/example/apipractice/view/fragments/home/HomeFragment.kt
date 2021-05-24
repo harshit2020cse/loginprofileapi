@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -17,26 +16,28 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.apipractice.R
 import com.example.apipractice.application.AppConstant
 import com.example.apipractice.base.BaseCommonAdapter
-import com.example.apipractice.data.BannerImage
-import com.example.apipractice.data.BannerListModel
 import com.example.apipractice.databinding.FragmentHomeBinding
-import com.example.apipractice.networkcall.BannerListener
 import com.example.apipractice.util.StorePreferences
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment(), BannerListener {
+class HomeFragment : Fragment() {
 
+    /* Binding Layout View */
     lateinit var binding: FragmentHomeBinding
+
+    /* Edit Profile ViewModel */
     lateinit var viewModel: HomeVM
+
+    /* StorePreferences to Store Data */
     lateinit var storePreferences: StorePreferences
+
     private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_home,
@@ -46,18 +47,21 @@ class HomeFragment : Fragment(), BannerListener {
         navController = Navigation.findNavController(requireActivity(), R.id.fragment_container)
         viewModel = ViewModelProvider(this).get(HomeVM::class.java)
         binding.viewModel = viewModel
-        viewModel.bannerListener = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        storePreferences = StorePreferences(requireContext())
 
         /* Get Banner List */
         viewModel.getBannerList()
 
+        /* Initialize */
         initView()
+
+        /* Set Observers */
+        bindObservers()
+
         /* Set Click Listeners */
         setClickListener()
     }
@@ -67,16 +71,26 @@ class HomeFragment : Fragment(), BannerListener {
      * */
     private fun initView() {
 
-        if (viewModel.bannerAdapter == null) {
+        storePreferences = StorePreferences(requireContext())
 
-            /* Banner Adapter */
-            viewModel.bannerAdapter =
-                BaseCommonAdapter(viewModel.bannerAdapterList)
-        }
-        binding.bannerRecyclerView.adapter = viewModel.bannerAdapter
+    }
 
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.bannerRecyclerView)
+    /** Set Observers to capture actions */
+    private fun bindObservers() {
+        viewModel.apiResponse.observe(viewLifecycleOwner, {
+            if (viewModel.bannerAdapter == null) {
+
+                /* Banner Adapter */
+                viewModel.bannerAdapter =
+                    BaseCommonAdapter(viewModel.bannerAdapterList)
+            }
+            binding.bannerRecyclerView.adapter = viewModel.bannerAdapter
+
+            val snapHelper: SnapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(binding.bannerRecyclerView)
+            Log.e("Banner", "${viewModel.bannerAdapterList}")
+        })
+
     }
 
     /**
@@ -104,27 +118,4 @@ class HomeFragment : Fragment(), BannerListener {
         }
     }
 
-    /* Get API Success Response */
-    override fun onSuccess(bannerListResponse: LiveData<BannerListModel>) {
-        bannerListResponse.observe(this, { it ->
-
-            //TODO Use Coroutines in ViewModel
-
-            viewModel.bannerAdapterList.clear()
-            it.data?.forEach { it1 ->
-                if (it1._id == AppConstant.BANNER_TYPE.HOME) {
-                    it1.urls?.forEach {
-                        viewModel.bannerAdapterList.add(
-                            BannerHomeItemViewModel(
-                                BannerImage(imageUrl = it.en)
-                            )
-                        )
-
-                    }
-                }
-            }
-            Log.e("ADAPTER", "ADAPTER : " + viewModel.bannerAdapterList.size)
-            viewModel.bannerAdapter?.notifyDataSetChanged()
-        })
-    }
 }

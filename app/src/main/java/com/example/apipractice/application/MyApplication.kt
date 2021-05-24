@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.multidex.MultiDex
 import com.example.apipractice.data.ProfileData
 
-//TODO Proper Commenting on Methods with Parameters
+
 //TODO Make All Data Classes Parcelable and use @Keep Annotation (if not used)
 class MyApplication : Application() {
 

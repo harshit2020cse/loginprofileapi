@@ -6,30 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
 import com.example.apipractice.application.AppConstant
-import com.example.apipractice.data.ProfileModel
 import com.example.apipractice.databinding.FragmentProfileBinding
-import com.example.apipractice.networkcall.ProfileListener
 import com.example.apipractice.util.StorePreferences
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class ProfileFragment : Fragment(), ProfileListener {
+class ProfileFragment : Fragment() {
 
+    /* Binding Layout View */
     lateinit var binding: FragmentProfileBinding
+
+    /* Profile ViewModel */
     lateinit var viewModel: ProfileVM
+
+    /* StorePreferences to Store Data */
     lateinit var storePreferences: StorePreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_profile,
@@ -38,16 +37,34 @@ class ProfileFragment : Fragment(), ProfileListener {
         )
         viewModel = ViewModelProvider(this).get(ProfileVM::class.java)
         binding.viewModel = viewModel
-
-        /* ProfileListener Interface */
-        viewModel.profileListener = this
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /* Initialize */
+        initView()
+
+        /* Set Observers */
+        bindObservers()
+
+        /* API Call */
+        viewModel.getProfileData()
+
+        /* Set CLick Listener */
+        setClickListener()
+    }
+
+    /**
+     * Initialize
+     * */
+    private fun initView() {
         storePreferences = StorePreferences(requireContext())
+    }
+
+    /** Set Observers to capture actions */
+    private fun bindObservers() {
 
         /* Profile Updated SnackBar */
         when (arguments?.getString(AppConstant.EDITPROFILE.KEY)) {
@@ -59,11 +76,6 @@ class ProfileFragment : Fragment(), ProfileListener {
                     Snackbar.LENGTH_SHORT
                 ).show()
         }
-        /* API Call */
-        viewModel.getProfileData()
-
-        /* Set CLick Listener */
-        setClickListener()
     }
 
     /**
@@ -77,21 +89,4 @@ class ProfileFragment : Fragment(), ProfileListener {
         }
     }
 
-    /** Get API Success Response */
-    override fun onSuccess(profileResponseResponse: LiveData<ProfileModel>) {
-        profileResponseResponse.observe(this, {
-            GlobalScope.launch {
-
-                /* Set UI data */
-                it.data?.let { it1 ->
-                    viewModel.setUIData(it1)
-
-                    /* Store Profile data in DataStore */
-                    storePreferences.storeValue(StorePreferences.DEMAND_PROFILE_DATA, it1)
-                    viewModel.app.setProfileData(it1)
-                }
-
-            }
-        })
-    }
 }

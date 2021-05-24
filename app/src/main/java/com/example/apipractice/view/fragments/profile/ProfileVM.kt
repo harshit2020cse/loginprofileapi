@@ -1,16 +1,31 @@
 package com.example.apipractice.view.fragments.profile
 
+import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.ProfileData
-import com.example.apipractice.networkcall.ProfileListener
-import com.example.apipractice.repo.AuthRepository
+import com.example.apipractice.data.ProfileModel
+import com.example.apipractice.repo.AuthApiService
 import com.example.apipractice.ui.DateFormatUtils
+import com.example.apipractice.util.StorePreferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class ProfileVM : ViewModel() {
+
+    /* Application to get context */
+    val app = MyApplication.getApplication()
+
+    /* StorePreferences to Store Data */
+    var storePreferences = StorePreferences(MyApplication.getApplication())
 
     /* Ui Fields */
     val progressBarVisible = ObservableBoolean(false)
@@ -24,24 +39,48 @@ class ProfileVM : ViewModel() {
     val firstAlternatePhoneNumberField = ObservableField("")
     val secondAlternatePhoneNumberField = ObservableField("")
     val bloodGroup = ObservableField("")
-    var profileListener: ProfileListener? = null
-    val app = MyApplication.getApplication()
+    val responseData = MutableLiveData<String>()
+    val profileResponse = MutableLiveData<ProfileModel>()
 
     /**
      *  Get Profile Data
      */
     fun getProfileData() {
+        /** Update User Profile API Response Data */
+        AuthApiService().getProfile()
+            .enqueue(object : Callback<ProfileModel> {
+                override fun onResponse(
+                    call: Call<ProfileModel>,
+                    response: Response<ProfileModel>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()?.status == true && response.body() != null) {
+                            Log.e("Status", "Status ${response.body()?.status}")
+                            profileResponse.postValue(response.body())
 
-        /* Notify Loading */
-        progressBarVisible.set(true)
+                            viewModelScope.launch(Dispatchers.IO) {
 
-        /* Get API Response */
-        val loginResponse = AuthRepository().getProfile()
-        profileListener?.onSuccess(loginResponse)
+                                /* Set UI data */
+                                response.body()?.data?.let { it1 ->
+                                    setUIData(it1)
 
-        /* Notify Loading */
-        progressBarVisible.set(false)
+                                    /* Store Profile data in DataStore */
+                                    storePreferences.storeValue(
+                                        StorePreferences.DEMAND_PROFILE_DATA,
+                                        it1
+                                    )
+                                    app.setProfileData(it1)
+                                }
 
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileModel>, t: Throwable) {
+                    responseData.postValue(t.message.toString())
+                }
+            })
     }
 
     /**

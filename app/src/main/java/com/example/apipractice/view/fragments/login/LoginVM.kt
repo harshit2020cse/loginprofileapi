@@ -1,28 +1,44 @@
 package com.example.apipractice.view.fragments.login
 
+import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.apipractice.R
 import com.example.apipractice.application.AppConstant
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.base.BaseModel
+import com.example.apipractice.data.LoginModel
 import com.example.apipractice.di.ResourceProvider
-import com.example.apipractice.networkcall.AuthListener
-import com.example.apipractice.repo.AuthRepository
+import com.example.apipractice.repo.AuthApiService
+import com.example.apipractice.util.StorePreferences
 import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginVM : ViewModel() {
 
+    /* Application to get context */
+    val app = MyApplication.getApplication()
+
+    /* ResourceProvider to get drawables */
     private val resourceProvider = ResourceProvider(MyApplication.getApplication())
+
+    /* StorePreferences to Store Data */
+    var storePreferences = StorePreferences(MyApplication.getApplication())
+
     /* UI Fields */
-    val usernameField = ObservableField("PAP12MA00031")
+    val usernameField = ObservableField("PZZ0ZA00045")
     val passwordField = ObservableField("12345678")
     val isValidUsername = ObservableField(BaseModel(true))
     val isValidPassword = ObservableField(BaseModel(true))
     val progressBarVisible = ObservableBoolean(false)
-    var authListener: AuthListener? = null
-    val app = MyApplication.getApplication()
+    val loginResponse = MutableLiveData<LoginModel>()
 
     /** Login Button Click*/
     fun setLogin() {
@@ -35,6 +51,7 @@ class LoginVM : ViewModel() {
                     message = resourceProvider.getString(R.string.please_enter_medoID)
                 )
             )
+            /* To Prevent From BackStack Issue */
             isValidPassword.set(BaseModel(true))
             return
         }
@@ -46,9 +63,10 @@ class LoginVM : ViewModel() {
             /* Notify User */
             isValidPassword.set(
                 BaseModel(
-                    message = resourceProvider.getString(R.string.invalid_password)
+                    message = resourceProvider.getString(R.string.please_enter_password)
                 )
             )
+            /* To Prevent From BackStack Issue */
             isValidUsername.set(BaseModel(true))
             return
         }
@@ -79,16 +97,50 @@ class LoginVM : ViewModel() {
         jsonObject.addProperty(AppConstant.API_PARAM_KEY.PASSWORD, passwordField.get() ?: "")
         jsonObject.add(AppConstant.API_PARAM_KEY.SESSION, sessionJsonObject)
 
-        /* Notify Loading */
-        progressBarVisible.set(true)
+        /* Get User Login API Response Data */
+        val responseData = MutableLiveData<String>()
+        AuthApiService().userLogin(jsonObject)
+            .enqueue(object : Callback<LoginModel> {
+                override fun onResponse(
+                    call: Call<LoginModel>,
+                    response: Response<LoginModel>
+                ) {
+                    Log.e("Response", "${response.body()}")
+                    if (response.isSuccessful) {
+                        if (response.body()?.status == true && response.body() != null) {
+                            Log.e("Status", "Status ${response.body()?.status}")
 
-        /* Get API Response */
-        val loginResponse = AuthRepository().userLogin(jsonObject)
-        authListener?.onSuccess(loginResponse)
+                            loginResponse.postValue(response.body())
 
-        /* Notify Loading */
-        progressBarVisible.set(false)
+                            viewModelScope.launch(Dispatchers.IO) {
+
+                                /* Store TOKEN in DataStore */
+                                response.body()?.data?.token?.let { it1 ->
+                                    storePreferences.storeValue(
+                                        StorePreferences.TOKEN,
+                                        it1
+                                    )
+                                }
+                                app.setToken(response.body()?.data?.token)
+
+                                /* Store USER_TYPE in DataStore */
+                                response.body()?.data?.userType?.let { it1 ->
+                                    storePreferences.storeValue(
+                                        StorePreferences.USER_TYPE,
+                                        it1
+                                    )
+                                }
+                            }
+                        }
+                    } else {
+                        responseData.postValue(response.errorBody().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginModel>, t: Throwable) {
+                    responseData.postValue(t.message.toString())
+                }
+            })
+
     }
-
-
 }

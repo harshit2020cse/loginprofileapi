@@ -48,7 +48,7 @@ object AppConstant {
      * */
     interface EDITPROFILE {
         companion object {
-            val EDIT_PROFILE = "logout"
+            val EDIT_PROFILE = "EDIT_PROFILE"
             val KEY = "KEY"
         }
     }

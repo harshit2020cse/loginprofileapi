@@ -1,32 +1,32 @@
 package com.example.apipractice.view.fragments.profile.editprofile
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.apipractice.application.AppConstant
 import com.example.apipractice.R
-import com.example.apipractice.data.ProfileModel
+import com.example.apipractice.application.AppConstant
 import com.example.apipractice.databinding.FragmentEditProfileBinding
-import com.example.apipractice.networkcall.ProfileListener
 
-class EditProfileFragment : Fragment(), ProfileListener {
+class EditProfileFragment : Fragment() {
 
+    /* Binding Layout View */
     lateinit var binding: FragmentEditProfileBinding
+
+    /* Edit Profile ViewModel */
     lateinit var viewModel: EditProfileVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = DataBindingUtil.inflate(
             layoutInflater,
             R.layout.fragment_edit_profile,
@@ -35,18 +35,37 @@ class EditProfileFragment : Fragment(), ProfileListener {
         )
         viewModel = ViewModelProvider(this).get(EditProfileVM::class.java)
         binding.viewModel = viewModel
-
-        /* ProfileListener Interface */
-        viewModel.profileListener = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.app.getProfileData()?.let { viewModel.setUiData(it) }
+
+        /* Set Observers */
+        bindObservers()
 
         /* Set Click Listener */
         setClickListener()
+    }
+
+    /** Set Observers to capture actions */
+    private fun bindObservers() {
+
+        /* Observe Profile Data */
+        viewModel.profileResponse.observe(viewLifecycleOwner, {
+            Log.e(ContentValues.TAG, "Response $it")
+
+            if (it.data?.status == true) {
+                val bundle = bundleOf().apply {
+                    putString(AppConstant.EDITPROFILE.KEY, AppConstant.EDITPROFILE.EDIT_PROFILE)
+                }
+                /* Navigate to Profile Screen */
+                findNavController().navigate(
+                    R.id.action_editProfileFragment_to_profileFragment,
+                    bundle
+                )
+            }
+        })
     }
 
     /**
@@ -67,14 +86,4 @@ class EditProfileFragment : Fragment(), ProfileListener {
         }
     }
 
-    /** Get API Success Response */
-    override fun onSuccess(profileResponseResponse: LiveData<ProfileModel>) {
-        profileResponseResponse.observe(this, Observer {
-            val bundle = bundleOf().apply {
-                putString(AppConstant.EDITPROFILE.KEY, AppConstant.EDITPROFILE.EDIT_PROFILE)
-            }
-            /* Navigate to Profile Screen */
-            findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment, bundle)
-        })
-    }
 }

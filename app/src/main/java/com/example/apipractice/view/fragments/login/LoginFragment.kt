@@ -8,42 +8,59 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.apipractice.R
 import com.example.apipractice.application.AppConstant
-import com.example.apipractice.data.LoginModel
 import com.example.apipractice.databinding.FragmentLoginBinding
-import com.example.apipractice.networkcall.AuthListener
 import com.example.apipractice.util.StorePreferences
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class LoginFragment : Fragment(), AuthListener {
+class LoginFragment : Fragment() {
 
+    /* Binding Layout View */
     lateinit var binding: FragmentLoginBinding
+
+    /* Login ViewModel */
     lateinit var viewModel: LoginVM
+
+    /* StorePreferences to Store Data */
     lateinit var storePreferences: StorePreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false
         )
         viewModel = ViewModelProvider(this).get(LoginVM::class.java)
         binding.viewModel = viewModel
-        viewModel.authListener = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /* Initialize */
+        initView()
+
+        /* Set Observers */
+        bindObservers()
+
+        /* Set CLick Listener*/
+        setClickListener()
+    }
+
+    /**
+     * Initialize
+     * */
+    private fun initView() {
         storePreferences = StorePreferences(requireContext())
+    }
+
+    /** Set Observers to capture actions */
+    private fun bindObservers() {
         when (arguments?.getString(AppConstant.AUTHENTICATION_KEYS.KEY)) {
             AppConstant.AUTHENTICATION_KEYS.LOGOUT ->
                 Snackbar.make(
@@ -54,45 +71,11 @@ class LoginFragment : Fragment(), AuthListener {
                 ).show()
         }
 
-        /* Set CLick Listener*/
-        setClickListener()
-    }
-
-    /** Set Click Listeners */
-    private fun setClickListener() {
-        binding.loginButton.setOnClickListener {
-            viewModel.setLogin()
-        }
-    }
-
-    /* Get API Success Response */
-    override fun onSuccess(loginResponse: LiveData<LoginModel>) {
-        loginResponse.observe(this, {
-
-            //TODO Use Coroutines in ViewModel
-
-            /** Store TOKEN in DataStore*/
-            GlobalScope.launch {
-                it.data?.token?.let { it1 ->
-                    storePreferences.storeValue(
-                        StorePreferences.TOKEN,
-                        it1
-                    )
-                }
-                viewModel.app.setToken(it.data?.token)
-
-                /** Store USER_TYPE in DataStore*/
-                it.data?.userType?.let { it1 ->
-                    storePreferences.storeValue(
-                        StorePreferences.USER_TYPE,
-                        it1
-                    )
-                }
-            }
+        viewModel.loginResponse.observe(viewLifecycleOwner, {
 
             Log.e(TAG, "Response $it")
 
-            /** SnackBar Login Message*/
+            /* SnackBar Login Message*/
             Snackbar.make(requireContext(), binding.mainLayout, it.message, Snackbar.LENGTH_SHORT)
                 .show()
             /* Navigate to Home Screen */
@@ -100,6 +83,15 @@ class LoginFragment : Fragment(), AuthListener {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         })
+
+
+    }
+
+    /** Set Click Listeners */
+    private fun setClickListener() {
+        binding.loginButton.setOnClickListener {
+            viewModel.setLogin()
+        }
     }
 
 

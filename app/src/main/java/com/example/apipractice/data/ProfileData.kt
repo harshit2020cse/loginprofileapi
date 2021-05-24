@@ -42,5 +42,5 @@ data class ProfileData(
     val createdAt: String? = null,
     val distance: Double? = null,
     val location: List<Double>? = null,
-    val status: String? = null
+    val status: Boolean? = false
 ) : Parcelable
