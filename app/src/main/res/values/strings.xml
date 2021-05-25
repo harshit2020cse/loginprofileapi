@@ -11,6 +11,19 @@
     <string name="login_successful">Login Successful</string>
     <string name="country_code_format">+91 %1$s</string>
     <string name="welcome_to_medoplus">Welcome to Medoplus</string>
+    <string name="choose_image_source">Choose Image Source</string>
+    <string name="error_message">Error Message</string>
+    <string name="error_title">Oops</string>
+    <string name="ok">OK</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="no_relevant_app">No relevant app found</string>
+    <string name="storage_permission_denied">Storage Permission Denied. Please allow storage permission to choose image.</string>
+    <string name="camera_permission_denied">Camera Permission Denied. Please allow camera permission to take picture.</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="provide_permission">Please allow permission(s) to continue operation</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="dismiss">Dismiss</string>
 
     <!--  Dummy Strings  -->
     <string name="address_sample">Vill Budpur Mufti Post Barampur Bhojpur Kiratpur District Bijnor Uttar Pradesh 246731, India</string>
@@ -76,5 +89,11 @@
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
     <string name="profile_updated_successfully">Profile Updated Successfully</string>
+
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="transgender">Transgender</string>
+    <string name="select_address">Select Address</string>
 
 </resources>

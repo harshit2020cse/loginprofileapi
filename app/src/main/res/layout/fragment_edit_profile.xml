@@ -8,7 +8,6 @@
         <variable
             name="viewModel"
             type="com.example.apipractice.view.fragments.profile.editprofile.EditProfileVM" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +51,6 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/firstNameTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:text="@string/first_name"
                         android:textColor="@color/colorOnDarkBlue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +59,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/firstNameEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_first_name"
                         android:inputType="textPersonName"
                         android:text="@={viewModel.firstNameField}"
@@ -72,7 +69,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/lastNameTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/last_name"
                         android:textColor="@color/colorOnDarkBlue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +78,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/lastNameEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_last_name"
                         android:inputType="textPersonName"
                         android:text="@={viewModel.lastNameField}"
@@ -92,7 +88,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/dateOfBirthTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/date_of_birth"
                         android:textColor="@color/colorOnDarkBlue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +99,7 @@
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="@dimen/_4sdp"
+                        android:padding="@dimen/_6sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/dateOfBirthTextView"
                         app:layout_constraintStart_toEndOf="@+id/dateOfBirthTextView"
                         app:layout_constraintTop_toTopOf="@+id/dateOfBirthTextView"
@@ -111,85 +107,118 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/dobValueTextView"
-                        style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
+                        style="@style/TextViewStyle.HintColor"
                         android:drawableEnd="@drawable/ic_calendar"
-                        android:gravity="center_vertical"
                         android:hint="@string/dd_mm_yyyy"
-                        android:text="@={viewModel.dobField}"
-                        android:textColorHint="?attr/colorControlHighlight"
+                        android:text="@{viewModel.dobField}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/dateOfBirthTextView" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/addressLine1TextView"
+                        android:id="@+id/genderTextView"
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/gender"
+                        android:textColor="@color/colorOnDarkBlue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dobValueTextView" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/genderTextView">
+
+                        <RadioButton
+                            android:id="@+id/radioMale"
+                            style="@style/RadioButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:button="@drawable/male_btn_radio"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/radioFemale"
+                            style="@style/RadioButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:button="@drawable/female_btn_radio"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/radioTransgender"
+                            style="@style/RadioButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:button="@drawable/transgender_btn_radio"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@string/transgender" />
+
+                    </RadioGroup>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/addressLineOneTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/address_line_1"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/dobValueTextView"
-                        tools:text="Address Line 1*" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/addressLine1TextViewValue"
-                        style="@style/EditTextStyle"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:gravity="center_vertical"
-                        android:hint="@string/enter_address"
-                        android:textColorHint="?attr/colorControlHighlight"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHeight_min="@dimen/_40sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/addressLine1TextView" />
+                        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+                        tools:text="@string/address_line_1" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/addressLine2TextView"
+                        android:id="@+id/addressLineOneValueTextView"
+                        style="@style/TextViewStyle.HintColor"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_gps"
+                        android:hint="@string/select_address"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_min="@dimen/_35sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/addressLineOneTextView" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/addressLineTwoTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/address_line_2"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/addressLine1TextViewValue"
-                        tools:text="Address Line 2*" />
+                        app:layout_constraintTop_toBottomOf="@id/addressLineOneValueTextView"
+                        tools:text="@string/address_line_2" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/addressLine2EditText"
+                        android:id="@+id/addressLineTwoEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_address"
                         android:inputType="textMultiLine"
                         android:maxLines="4"
                         android:minLines="1"
                         android:scrollbars="vertical"
-                        android:textColorHint="?attr/colorControlHighlight"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/addressLine2TextView" />
+                        app:layout_constraintTop_toBottomOf="@id/addressLineTwoTextView" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/pinCodeTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/pin_code"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/addressLine2EditText" />
+                        app:layout_constraintTop_toBottomOf="@id/addressLineTwoEditText" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/pinCodeEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_pin_code"
                         android:inputType="number"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/pinCodeTextView" />
@@ -200,18 +229,15 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/state"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/pinCodeEditText" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/statetextSpinner"
-                        style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/stateValueTextView"
+                        style="@style/TextViewStyle.HintColor"
+                        android:layout_height="@dimen/_35sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_state"
-                        android:textColorHint="?attr/colorControlHighlight"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/stateTextView"
                         app:layout_constraintTop_toBottomOf="@id/stateTextView" />
@@ -222,17 +248,15 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/district"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/statetextSpinner" />
+                        app:layout_constraintTop_toBottomOf="@id/stateValueTextView" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/districtTextSpinner"
-                        style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/districtValueTextView"
+                        style="@style/TextViewStyle.HintColor"
+                        android:layout_height="@dimen/_35sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_district"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/districtTextView" />
@@ -243,18 +267,13 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/block"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/districtTextSpinner" />
+                        app:layout_constraintTop_toBottomOf="@id/districtValueTextView" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/blockTextSpinner"
-                        style="@style/EditTextStyle"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:gravity="center_vertical"
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/blockValueTextView"
+                        style="@style/TextViewStyle.HintColor"
                         android:hint="@string/enter_block"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/blockTextView" />
@@ -262,16 +281,15 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/firstAlternateNoTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/__1st_alternate_number"
                         android:textColor="@color/colorOnDarkBlue"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/blockTextSpinner" />
+                        app:layout_constraintTop_toBottomOf="@id/blockValueTextView" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/firstAlternateNoEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_1st_alternate_number"
                         android:inputType="number"
                         android:text="@={viewModel.alternatePhoneFirstNumberField}"
@@ -282,7 +300,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/secondAlternateNoTextView"
                         style="@style/TextViewStyle"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/__2nd_alternate_number"
                         android:textColor="@color/colorOnDarkBlue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -291,7 +309,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/secondAlternateNoEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:hint="@string/enter_2nd_alternate_number"
                         android:inputType="number"
                         android:text="@={viewModel.alternatePhoneSecondNumberField}"
@@ -303,19 +320,16 @@
                         android:id="@+id/bloodGroupTextView"
                         style="@style/TextViewStyle"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:text="@string/blood_group_"
+                        android:text="@string/blood_group"
                         android:textColor="@color/colorOnDarkBlue"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/secondAlternateNoEditText" />
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/bloodTextSpinner"
+                        android:id="@+id/bloodGroupEditText"
                         style="@style/EditTextStyle"
-                        android:layout_marginTop="@dimen/_4sdp"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_blood_group"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/bloodGroupTextView" />
@@ -329,16 +343,16 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/updateButton"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/bloodTextSpinner" />
+                        app:layout_constraintTop_toBottomOf="@id/bloodGroupEditText" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/updateButton"
                         style="@style/ButtonStyle"
-                        android:backgroundTint="@color/colorBlue"
                         android:text="@string/update"
                         app:layout_constraintBaseline_toBaselineOf="@id/cancelButton"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/cancelButton" />
+                        app:layout_constraintStart_toEndOf="@id/cancelButton"
+                        app:layout_constraintTop_toTopOf="@id/cancelButton" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -347,5 +361,4 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

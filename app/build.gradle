@@ -112,4 +112,15 @@ dependencies {
 
     /** MULTI DEX */
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    /** Google Map */
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+    /** Google Play Location Services: For Location Services */
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    implementation 'com.karumi:dexter:6.2.2'
+
+    // Facebook dependency
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.apipractice.application.MyApplication
 import com.example.apipractice.data.ProfileData
 import com.example.apipractice.data.ProfileModel
+import com.example.apipractice.di.ResourceProvider
 import com.example.apipractice.repo.AuthApiService
 import com.example.apipractice.ui.DateFormatUtils
 import com.example.apipractice.util.StorePreferences
@@ -17,7 +18,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class ProfileVM : ViewModel() {
 
@@ -26,6 +26,12 @@ class ProfileVM : ViewModel() {
 
     /* StorePreferences to Store Data */
     var storePreferences = StorePreferences(MyApplication.getApplication())
+
+    /* ResourceProvider to get drawables */
+    val resourceProvider = ResourceProvider(MyApplication.getApplication())
+
+    /* Is User Allow to Edit */
+    val isProfileEditable = ObservableField(true)
 
     /* Ui Fields */
     val progressBarVisible = ObservableBoolean(false)
@@ -91,11 +97,11 @@ class ProfileVM : ViewModel() {
         medoPlusIdField.set(data.medoplusId ?: "")
 
         data.firstName?.en?.let {
-            firstNameField.set(it.trim().capitalize(Locale.ROOT))
+            firstNameField.set(it.trim())
         }
 
         data.lastName?.en?.let {
-            lastNameField.set(it.trim().capitalize(Locale.ROOT))
+            lastNameField.set(it.trim())
         }
 
         data.dob?.let {
@@ -133,6 +139,12 @@ class ProfileVM : ViewModel() {
 
         data.alternateNumber2?.let {
             secondAlternatePhoneNumberField.set(it)
+        }
+
+        data.pictures?.let {
+            if (it.isNotEmpty()) {
+                profilePictureField.set(it[0].preview)
+            }
         }
     }
 }

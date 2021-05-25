@@ -28,7 +28,7 @@
     <!--    EditText Style-->
     <style name="EditTextStyle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:layout_height">@dimen/_35sdp</item>
         <item name="android:textSize">@dimen/medium_text</item>
         <item name="fontFamily">@font/open_sans_regular</item>
         <item name="android:background">@drawable/bg_edit_text_grey</item>
@@ -38,7 +38,7 @@
     <!--    Button Solid Style-->
     <style name="ButtonStyle">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:layout_height">@dimen/_35sdp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/medium_text</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -97,6 +97,23 @@
     <!--  BOLD FONT STYLE  -->
     <style name="TextViewStyle.BOLD">
         <item name="android:fontFamily">@font/open_sans_bold</item>
+    </style>
+
+    <style name="TextViewStyle.HintColor">
+        <item name="android:layout_height">@dimen/_40sdp</item>
+        <item name="android:textColorHint">?attr/colorControlHighlight</item>
+        <item name="android:padding">@dimen/_4sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_edit_text_grey</item>
+    </style>
+
+    <style name="RadioButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="buttonTint">@android:color/transparent</item>
+        <item name="buttonTintMode">src_over</item>
+        <item name="android:textSize">@dimen/regular_text</item>
     </style>
 
 </resources>
